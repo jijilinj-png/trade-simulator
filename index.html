@@ -946,7 +946,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>© 2025 TradePro. All rights reserved. developed by ❤️ sarjan p</p>
+                <p>© 2026 TradePro. All rights reserved. developed by Aperture</p>
             </div>
         </footer>
     </div>
@@ -1203,14 +1203,15 @@
             const minPrice = Math.min(...allPrices);
             const maxPrice = Math.max(...allPrices);
             const priceRange = maxPrice - minPrice;
-            const padding = priceRange * 0.15;
+            const padding = priceRange === 0 ? maxPrice * 0.15 || 1 : priceRange * 0.15;
 
             // Better scaling
             const chartPadding = 60;
             const effectiveHeight = chartHeight - chartPadding;
             
             const priceToY = (price) => {
-                const normalized = (price - (minPrice - padding)) / (priceRange + 2 * padding);
+                const range = priceRange === 0 ? (maxPrice * 0.15 || 1) * 2 : priceRange + 2 * padding;
+                const normalized = (price - (minPrice - padding)) / range;
                 return effectiveHeight - (normalized * effectiveHeight) + (chartPadding / 2);
             };
 
